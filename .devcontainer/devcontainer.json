@@ -1,0 +1,10 @@
+{
+  "name": "test-app",
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "appPort": [3000],
+  "service": "test-app",
+  "extensions": ["dbaeumer.vscode-eslint"],
+  // "postCreateCommand": "yarn install",
+  "workspaceFolder": "/app",
+  "shutdownAction": "stopCompose"
+}

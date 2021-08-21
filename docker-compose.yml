@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  test-app:
+    container_name: test-app
+    build: .
+    tty: true
+    working_dir: /app
+    ports:
+      - 8080:3000
+    volumes:
+      - .:/app:cached
+      - node_modules:/app/node_modules
+      - dist:/usr/src/app/dist
+
+volumes:
+  node_modules: {}
+  dist: {}
