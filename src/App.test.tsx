@@ -1,13 +1,12 @@
-/**
- * @jest-environment jsdom
- */
 
 import React from 'react';
-import { render } from '@testing-library/react';
+import Enzyme, { shallow } from 'enzyme';
+import EnzymeAdapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { App } from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+Enzyme.configure({ adapter: new EnzymeAdapter() });
+
+test('renders non-empty component without crashing', () => {
+  const wrapper = shallow(<App />)
+  expect(wrapper.exists()).toBe(true);
 });

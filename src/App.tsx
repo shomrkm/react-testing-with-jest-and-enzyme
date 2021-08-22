@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
-import { CheckboxWithLabel } from './components/checkboxWithLabel';
+import { ClickCounter } from './components/clickCounter/clickCounter';
 
 const GlobalStyle = createGlobalStyle`
   body{
@@ -17,7 +17,7 @@ export const App = () => {
     <>
       <GlobalStyle />
       <h1>learn react</h1>
-      {/* <CheckboxWithLabel labelOn={'Label On'} labelOff = {'Label Off'} /> */}
+      <ClickCounter />
     </>
   );
 };

@@ -12,5 +12,8 @@ module.exports = {
     ],
   ],
   verbose: true,
-  plugins: ["babel-plugin-styled-components"]
+  plugins: [
+    ["babel-plugin-styled-components"],
+    ["react-remove-properties", {"properties": ["data-test"]}]
+  ]
 };
