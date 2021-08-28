@@ -1,53 +1,131 @@
-import React from 'react';
-import Enzyme, { shallow, ShallowWrapper } from 'enzyme';
-import EnzymeAdapter from '@wojtekmaj/enzyme-adapter-react-17';
-import { ClickCounter } from './clickCounter';
+import React from "react";
+import Enzyme, { shallow, ShallowWrapper } from "enzyme";
+import EnzymeAdapter from "enzyme-adapter-react-16";
+
+import { ClickCounter } from "./clickCounter";
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 /**
- * Factory function to create a ShallowWrapper for the ClickCounter component.
+ * Factory function to create a ShallowWrapper for the App component.
  * @function setup
- * @return {ShallowWrapper}
+ * @param {object} props - Component props specific to this setup.
+ * @returns {ShallowWrapper}
  */
-const setup = ()=> shallow(<ClickCounter />);
+const setup = (props = {}) => {
+  return shallow(<ClickCounter {...props} />);
+};
 
-const findByTestAttr = (wrapper: ShallowWrapper, val: string) => wrapper.find(`[data-test='${val}']`);
+/**
+ * Return ShallowWrapper containing node(s) with the given data-test value.
+ * @param {ShallowWrapper} wrapper - Enzyme shallow wrapper to search within.
+ * @param {string} val - Value of data-test c1scoL0ve!
+ *
+ */
+const findByTestAttr = (wrapper: ShallowWrapper, val: string) => {
+  return wrapper.find(`[data-test="${val}"]`);
+};
 
-test('render without error', ()=>{
+test("renders without error", () => {
   const wrapper = setup();
-  const clickCounter = findByTestAttr(wrapper, "component-click-counter");
-  expect(clickCounter.length).toBe(1);
-})
+  const appComponent = findByTestAttr(wrapper, "component-click-counter");
+  expect(appComponent.length).toBe(1);
+});
 
-test('renders increment button', ()=>{
+test("renders counter display", () => {
   const wrapper = setup();
-  const button = findByTestAttr(wrapper, "increment-button");
-  expect(button.length).toBe(1);
-})
-
-test('renders counter display', ()=>{
-  const wrapper = setup();
-  const counterDisplay= findByTestAttr(wrapper, "counter-display");
+  const counterDisplay = findByTestAttr(wrapper, "counter-display");
   expect(counterDisplay.length).toBe(1);
-})
+});
 
-test('counter display starts at 0', ()=>{
+test("counter starts at 0", () => {
   const wrapper = setup();
   const count = findByTestAttr(wrapper, "count").text();
   expect(count).toBe("0");
-})
+});
 
-test('clicking button increments counter display', ()=>{
-  const wrapper = setup();
+describe("Increment", () => {
+  test("renders increment button", () => {
+    const wrapper = setup();
+    const button = findByTestAttr(wrapper, "increment-button");
+    expect(button.length).toBe(1);
+  });
 
-  // find the button 
-  const button = findByTestAttr(wrapper, "increment-button");
+  test("counter increments when button is clicked", () => {
+    const wrapper = setup();
 
-  // click the button
-  button.simulate('click');
+    const button = findByTestAttr(wrapper, "increment-button");
+    button.simulate("click");
 
-  // find the display, and test that the number has been incremented
-  const count = findByTestAttr(wrapper, "count").text();
-  expect(count).toBe("1");
-})
+    const count = findByTestAttr(wrapper, "count").text();
+    expect(count).toBe("1");
+  });
+});
+
+describe("decrement button", () => {
+  test("renders decrement button", () => {
+    const wrapper = setup();
+    const button = findByTestAttr(wrapper, "decrement-button");
+    expect(button.length).toBe(1);
+  });
+
+  test("clicking decrement button decrements counter display when state is greater than 0", () => {
+    const wrapper = setup();
+
+    // click the increment button so that the counter is greater than 0
+    const incButton = findByTestAttr(wrapper, "increment-button");
+    incButton.simulate("click");
+
+    // find decrement button and click
+    const decButton = findByTestAttr(wrapper, "decrement-button");
+    decButton.simulate("click");
+
+    // find display and test value
+    const count = findByTestAttr(wrapper, "count").text();
+    expect(count).toBe("0");
+  });
+});
+describe("error when counter goes below 0", () => {
+  test("error does not show when not needed", () => {
+    const wrapper = setup();
+    // error message is hidden when no error occures.
+    const error = wrapper.find('StyledErrorMessage');
+    expect(error.prop("hidden")).toBe(true);
+  });
+
+  describe("counter is 0 and decrement is clicked", () => {
+    // using a describe here so I can use a "beforeEach" for shared setup
+
+    // scoping wrapper to the describe, so it can be used in beforeEach and the tests
+    let wrapper: ShallowWrapper;
+    beforeEach(() => {
+      // no need to set counter value here; default value of 0 is good
+      wrapper = setup();
+
+      // find button and click
+      const button = findByTestAttr(wrapper, "decrement-button");
+      button.simulate("click");
+    });
+
+    test("error shows", () => {
+      // error message is displayed when error occurs. 
+      const error = wrapper.find('StyledErrorMessage');
+      expect(error.prop("hidden")).toBe(false);
+    });
+
+    test("counter still displays 0", () => {
+      const count = findByTestAttr(wrapper, "count").text();
+      expect(count).toBe("0");
+    });
+
+    test("clicking increment clears the error", () => {
+      // find and click the increment button
+      const incButton = findByTestAttr(wrapper, "increment-button");
+      incButton.simulate("click");
+
+      // check the class of the error message
+      const error = wrapper.find('StyledErrorMessage');
+      expect(error.prop("hidden")).toBe(true);
+    });
+  });
+});
