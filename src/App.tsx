@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 import { ClickCounter } from './components/clickCounter/clickCounter';
+import { Jotto } from './components/jotto/Jotto';
 
 const GlobalStyle = createGlobalStyle`
   body{
@@ -16,8 +17,8 @@ export const App = () => {
   return (
     <>
       <GlobalStyle />
-      <h1>learn react</h1>
-      <ClickCounter />
+      {/* <ClickCounter /> */}
+      <Jotto />
     </>
   );
 };
