@@ -11,7 +11,7 @@ module.exports = {
      "^.+\\.(ts|tsx)$": "ts-jest",
   },
   testPathIgnorePatterns: [
-    "/node_modules/"
+    "/node_modules/",
   ],
    // Setup Enzyme
   snapshotSerializers: ["enzyme-to-json/serializer"],

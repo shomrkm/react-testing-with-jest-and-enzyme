@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
     "@types/ol": "^6.5.1",
     "@types/styled-components": "^5.1.11",
     "ol": "^6.5.0",
