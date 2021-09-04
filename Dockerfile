@@ -12,4 +12,4 @@ COPY . $PROJECT_ROOTDIR
 
 EXPOSE 3000
 
-#CMD ["yarn", "start"]
+# CMD ["yarn", "start"]
