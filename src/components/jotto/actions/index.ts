@@ -1,7 +1,7 @@
+import React from 'react'
 import axios from 'axios';
 
-export const getSecretWord = () => {
-  // TODO: write actual action in redux/context section.
-  return axios.get('http://localhost:3030')
-    .then(response => (response.data));
+export const getSecretWord = async (setSecretWord: React.Dispatch<React.SetStateAction<string>>) => {
+  const response = await axios.get('http://localhost:3030');
+  setSecretWord(response.data);
 }

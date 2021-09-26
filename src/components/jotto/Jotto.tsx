@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 
 import { Congrats } from './Congrats'
@@ -14,13 +14,13 @@ interface Props {
 }
 
 export const Jotto: React.VFC<Props> = () => {
+  const [secretWord, setSecretWord] = useState('');
   // TODO: get props from shared state
   const success = false;
-  const secretWord = 'party';
   const guessedWords:GuessedWordList = [];
 
   useEffect(() => {
-    getSecretWord();
+    getSecretWord(setSecretWord);
   }, []);
 
   return (
