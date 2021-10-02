@@ -68,7 +68,7 @@
     "build:dev": "webpack --mode development",
     "watch:prod": "webpack --mode production --watch",
     "watch:dev": "webpack --mode development --watch",
-    "format": "prettier --write src/**/*.{js,tx,jsx,tsx,html,json,md}",
+    "format": "prettier --write src/**/*.{js,ts,jsx,tsx,html,test.ts,test.tsx,json,md}",
     "test": "jest  --maxWorkers=1 --watchAll",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"

@@ -3,15 +3,15 @@ import moxios from 'moxios';
 import { getSecretWord } from '.';
 
 describe('getSecretWord', () => {
-  beforeEach(()=>{
+  beforeEach(() => {
     moxios.install();
   });
-  afterEach(()=>{
+  afterEach(() => {
     moxios.uninstall();
   });
 
   test('secretWord is returned', async () => {
-    moxios.wait(()=>{
+    moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
@@ -22,5 +22,5 @@ describe('getSecretWord', () => {
     const mockSetSecretWord = jest.fn();
     await getSecretWord(mockSetSecretWord);
     expect(mockSetSecretWord).toHaveBeenCalledWith('party');
-  })
-})
+  });
+});

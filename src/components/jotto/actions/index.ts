@@ -1,7 +1,9 @@
-import React from 'react'
+import React from 'react';
 import axios from 'axios';
 
-export const getSecretWord = async (setSecretWord: React.Dispatch<React.SetStateAction<string>>) => {
+type funcType = (setSecretWord: string) => void;
+
+export const getSecretWord = async (setSecretWord: funcType) => {
   const response = await axios.get('http://localhost:3030');
   setSecretWord(response.data);
-}
+};

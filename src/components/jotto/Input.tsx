@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledInput = styled.div`
   display: flex;
   justify-content: center;
-`
+`;
 StyledInput.displayName = 'component-input';
 
 export interface Props {
@@ -13,32 +13,32 @@ export interface Props {
   secretWord: string;
 }
 
-export const Input: React.VFC<Props> = ({success, secretWord}) => {
-  const [currentGuess, setCurrentGuess] = useState("");
+export const Input: React.VFC<Props> = ({ success, secretWord }) => {
+  const [currentGuess, setCurrentGuess] = useState('');
 
-  if(success){
-    return <StyledInput />
+  if (success) {
+    return <StyledInput />;
   }
 
   return (
     <StyledInput>
-      <TextField 
+      <TextField
         id="input-box"
         data-test="input-box"
-        label="enter guess" 
-        onChange={(evt)=> setCurrentGuess(evt.target.value)}
+        label="enter guess"
+        onChange={(evt) => setCurrentGuess(evt.target.value)}
       />
-      <Button 
+      <Button
         id="submit-button"
         data-test="submit-button"
         variant="outlined"
-        onClick={(evt)=>{
+        onClick={(evt) => {
           evt.preventDefault();
-          setCurrentGuess("");
+          setCurrentGuess('');
         }}
       >
-          Submit
+        Submit
       </Button>
     </StyledInput>
   );
-}
+};

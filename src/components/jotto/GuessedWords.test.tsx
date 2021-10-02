@@ -14,43 +14,43 @@ const setup = (props: Props) => {
   return shallow(<GuessedWords {...props} />);
 };
 
-describe('if there are no words guessed', ()=>{
+describe('if there are no words guessed', () => {
   let wrapper: ShallowWrapper;
-  beforeEach(()=>{
-    wrapper = setup({guessedWords: []});
-  })
-  test('renders without error', ()=>{
+  beforeEach(() => {
+    wrapper = setup({ guessedWords: [] });
+  });
+  test('renders without error', () => {
     const component = findByTestAttr(wrapper, 'component-guessed-words');
     expect(component.length).toBe(1);
-  })
-  test('renders instructions to guess a word', ()=>{
+  });
+  test('renders instructions to guess a word', () => {
     const instructions = findByTestAttr(wrapper, 'guess-instructions');
     expect(instructions.text().length).not.toBe(0);
-  })
-})
- 
-describe('if there are words guessed', ()=>{
+  });
+});
+
+describe('if there are words guessed', () => {
   const guessedWords: Props = {
     guessedWords: [
-      { guessedWord: 'train', letterMatchCount: 3 } ,
+      { guessedWord: 'train', letterMatchCount: 3 },
       { guessedWord: 'apple', letterMatchCount: 1 },
-      { guessedWord: 'party', letterMatchCount: 5 }
-    ]
+      { guessedWord: 'party', letterMatchCount: 5 },
+    ],
   };
   let wrapper: ShallowWrapper;
-  beforeEach(()=>{
+  beforeEach(() => {
     wrapper = setup(guessedWords);
-  })
-  test('renders without error', ()=> {
+  });
+  test('renders without error', () => {
     const component = findByTestAttr(wrapper, 'component-guessed-words');
     expect(component.length).toBe(1);
-  })
-  test('renders "guessed word" section', ()=> {
+  });
+  test('renders "guessed word" section', () => {
     const table = wrapper.find(Table);
     expect(table.length).toBe(1);
-  })
-  test('renders  number of guessed words', ()=> {
+  });
+  test('renders  number of guessed words', () => {
     const tableRows = wrapper.find(TableRow);
     expect(tableRows.length).toBe(guessedWords.guessedWords.length + 1); // ヘッダ含む
-  })
-})
+  });
+});
